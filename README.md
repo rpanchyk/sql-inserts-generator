@@ -11,7 +11,7 @@ Implemented in pure JavaScript, so no need to send your data to another parties.
 
 ## Getting started
 
-### Prepare data in format
+### Prepare data in format and copy all required cells
 
 ```
 table1
@@ -20,11 +20,16 @@ valueA valueB valueC
 valueD valueE valueF
 ```
 
+where:
+- `first` line is a table name.
+- `second` line is a list of table columns.
+- `third and further` lines are values for corresponding columns.
+
 For example:
 
 ![alt](docs/table.png)
 
-### Paste all required cells to form and press the button.
+### Paste to form and press the button
 
 The resulted SQL script will be in bottom area.
 

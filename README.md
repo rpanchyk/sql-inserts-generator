@@ -11,9 +11,13 @@ Implemented in pure JavaScript, so no need to send your data to another parties.
 
 ## Getting started
 
-### 1. Open `sql-inserts-generator.html` file in any web browser
+### Run tool in browser
 
-### 2. Prepare data in format and copy all required cells
+Open `sql-inserts-generator.html` file in your favorite web browser.
+
+### Prepare data
+
+Compose data in format and copy all required cells.
 
 ```
 table1
@@ -31,7 +35,9 @@ For example:
 
 ![alt](docs/table.png)
 
-### 3. Paste copied data to form and press `Generate` button
+### Generate result
+
+Paste copied data to form and press `Generate` button.
 
 The resulted SQL script will be in bottom area.
 

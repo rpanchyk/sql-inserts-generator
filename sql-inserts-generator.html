@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SQL INSERTs Generator</title>
+</head>
+
+<body>
+    <main>
+        <H4>SQL INSERTs Generator</H4>
+        <form action="" id="form">
+            <label for="input"></label>
+            <textarea id="input" rows="25" style="width: 99%;" placeholder="table1
+column1 column2 columnN
+valueA valueB valueC
+valueD valueE valueF
+
+Example:
+--------
+apple
+variety color size
+golden yellow small
+lady green big"></textarea>
+            <br />
+            <br />
+            <button type="submit" style="float: left;">Generate</button>
+        </form>
+        <div id="error" style="float: left; padding-left: 1em; color: red;"></div>
+        <br />
+        <br />
+        <label for="output"></label>
+        <textarea id="output" rows="25" style="width: 99%;" readonly="readonly" placeholder="Example:
+--------
+INSERT INTO apple (variety,color,size) VALUES ('golden','yellow','small');
+INSERT INTO apple (variety,color,size) VALUES ('lady','green','big');"></textarea>
+        <footer style="color: grey; text-align: center;">
+            Developed by <a href="https://github.com/rpanchyk" target="_blank">rpanchyk</a>
+            &hearts;
+            Inspired by <a href="https://tools.perceptus.ca/text-wiz.php?ops=7" target="_blank"
+                style="color: grey;">tools.perceptus.ca</a>
+        </footer>
+    </main>
+    <script>
+        let loginForm = document.getElementById("form");
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            document.getElementById("error").innerHTML = "";
+
+            let input = document.getElementById("input").value;
+            let lines = input.split(/[\r\n]+/g);
+            if (lines.length < 3) {
+                document.getElementById("error").innerHTML = "Error: not valid data";
+            } else {
+                let output = "";
+                let table = lines[0].trim().split(/\s+/g)[0];
+                let rawColumns = lines[1].trim().split(/\s+/g);
+                for (let i = 2; i < lines.length; i++) {
+                    let line = lines[i].trim();
+                    if (line.length === 0) {
+                        continue;
+                    }
+
+                    // last column value can be of many parts
+                    let raw = line.split(/\s+/g);
+                    let rawValues = raw.splice(0, rawColumns.length - 1);
+                    rawValues.push(raw.join(' '));
+
+                    let columns = rawColumns.slice(0, rawColumns.length); // shallow copy of array
+                    let values = [];
+                    for (let j = 0; j < rawValues.length; j++) {
+                        let modifierIndex = rawColumns[j].indexOf('/');
+                        let modifier = '';
+                        if (modifierIndex !== -1) {
+                            modifier = rawColumns[j].substr(modifierIndex); // get modifier
+                            columns[j] = rawColumns[j].substr(0, modifierIndex); // remove modifier
+                        }
+
+                        let value = "'" + rawValues[j] + "'";
+                        if (modifier.indexOf('nq') !== -1) { // no quotes
+                            value = rawValues[j];
+                        }
+                        if (value.toLowerCase() === '\'null\'') { // do not quote NULLs
+                            value = 'NULL';
+                        }
+                        values.push(value);
+                    }
+                    output += "INSERT INTO " + table
+                        + " (" + columns.join(",") + ") "
+                        + "VALUES (" + values.join(",") + ");"
+                        + String.fromCharCode(13, 10);
+                }
+                document.getElementById("output").innerHTML = output;
+            }
+        });
+    </script>
+</body>
+
+</html>

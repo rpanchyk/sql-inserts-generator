@@ -2,22 +2,18 @@
 
 The tool for generating SQL INSERT commands from a specified text.
 
-Implemented in pure JavaScript, so no need to send your data to another parties. All data manipulations performs on your local machine (no internet connection required).
+Implemented in pure JavaScript, so no need to send your data to another parties. All data manipulations performs on your local machine.
 
 ## Requirements
 
 - Web browser
-- Any tables or text editor (Google Spreadsheets, MS Excel, etc.)
+- Text or tables editor (Google Spreadsheets, MS Excel, etc.)
 
 ## Getting started
 
-### Run tool in browser
-
-Open `sql-inserts-generator.html` file in your favorite web browser.
-
 ### Prepare data
 
-Compose data in format and copy all required cells.
+Compose data in Text/Tables editor according to predefined format and copy all required cells.
 
 ```
 table1
@@ -34,6 +30,10 @@ where:
 For example:
 
 ![alt](docs/table.png)
+
+### Run tool in browser
+
+Open `sql-inserts-generator.html` file in your favorite web browser.
 
 ### Generate result
 
